@@ -16,7 +16,7 @@ lpais
 .. |python version| image:: https://img.shields.io/pypi/pyversions/lpais.svg
    :target: https://pypi.python.org/pypi/lpais
 
-use libais to decode ais messages, 
+use `libais`_ to decode ais messages, replacing **ais.stream**
 
 install and test
 =======================
@@ -29,7 +29,17 @@ install and test
 
     .. code-block:: bash
 
-        $ CC=gcc-8 CXX=g++-8 make install
+        $ CC=gcc-8 CXX=g++-8 pip install lpais
+
+install from pypi
+********************
+
+using pip:
+
+.. code-block:: bash
+
+    $ pip install lpais
+
 
 production install
 ******************
