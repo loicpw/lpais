@@ -11,7 +11,7 @@ dev:
 freeze: 
 	pip freeze | sort | grep -v 'lpais'
 test: 
-	cd tests && ( pytest -rXxs -vv --cov-report html -cov-report term-missing --cov lpais )
+	cd tests && ( pytest -rXxs -vv --cov-report html --cov-report term-missing --cov lpais )
 
 doc: 
 	cd docs && make html

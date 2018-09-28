@@ -12,4 +12,4 @@ def test_pep8_conformance():
         base,
         # base / 'subdir',
     ]))
-assert result.total_errors == 0
+    assert result.total_errors == 0
