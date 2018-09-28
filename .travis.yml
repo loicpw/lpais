@@ -1,0 +1,29 @@
+language: python
+#python:
+#  - "3.6"
+#  - "3.7"
+# see: https://github.com/travis-ci/travis-ci/issues/9815
+# Enable 3.7 without globally enabling sudo and dist: xenial for other build jobs
+matrix:
+  include:
+    - addons:
+        apt:
+          sources:
+          - ubuntu-toolchain-r-test
+          packages:
+          - gcc-8
+          - g++-8
+    - python: 3.6
+    - python: 3.7
+      dist: xenial
+      sudo: true
+install:
+  - CC=gcc-8 CXX=g++-8 pip install -r requirements-dev.txt
+  # - pip install python-coveralls
+  # workaround : see https://github.com/z4r/python-coveralls/issues/66
+  - pip install python-coveralls 'coverage>=4.4'
+script:
+  - cd tests && ( pytest -rXxs -vv --cov-report term-missing --cov lpais )
+after_success:
+  - coveralls
+sudo: false
