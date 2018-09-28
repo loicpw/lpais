@@ -1,0 +1,7 @@
+# this file installs required dependencies only
+# (ordered alphabetically)
+libais==0.17
+six==1.11.0
+
+# secondary dependencies
+# (ordered alphabetically)

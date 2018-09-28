@@ -1,0 +1,13 @@
+# this file installs production dependencies and developement and tests dependencies
+# (ordered alphabetically)
+-r requirements.txt
+
+# required for tests:
+coverage
+pytest
+pytest-cov
+pep8
+
+# required for doc:
+sphinx
+sphinx_rtd_theme
