@@ -156,7 +156,21 @@ class OnlyMessageEndError(AISError):
         return '{description} for {bufferSlot}:\n{line}\n'.format(**self.kw)
 
 
-def decoder(*args, keep_nmea=False, **kwargs):
+class DecodeError(AISError):
+    """ Error while decoding AIS.
+
+        the representation will use the following fields from `kw`,
+        in addition to the fields used by `AISError`:
+
+        + 'error_type' : error type
+        + 'error' : error message
+    """
+    def __str__(self):
+        return ('{description}: {error_type}: {error} ({line})'
+                ''.format(**self.kw))
+
+
+def decoder(*args, keep_nmea=False, handle_err=logger.error, **kwargs):
     """ create a decoder function used to process NMEA lines one by one.
 
         The created function will take a single text line as input arg
@@ -197,7 +211,7 @@ def decoder(*args, keep_nmea=False, **kwargs):
           as 'nmea' field in output dictionary, all NMEA lines will be
           concatenated if multiline message.
     """
-    nrml = normalizer(*args, **kwargs)
+    nrml = normalizer(*args, handle_err=handle_err, **kwargs)
     decode_ais = ais.decode
 
     def decode(line):
@@ -215,10 +229,9 @@ def decoder(*args, keep_nmea=False, **kwargs):
             try:
                 res = decode_ais(body, pad)
             except Exception as err:
-                logger.error(
-                    f"ais error: {type(err).__qualname__}: {err} "
-                    f"(origin: {origline.strip()})"
-                )
+                handle_err(DecodeError(line=origline.strip(),
+                                       error_type=type(err).__qualname__,
+                                       error=err))
                 return
             res.update(tagblock)
             if keep_nmea:
