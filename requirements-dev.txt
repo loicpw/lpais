@@ -4,7 +4,7 @@
 
 # required for tests:
 coverage
-pytest
+pytest>=3.6
 pytest-cov
 pep8
 
