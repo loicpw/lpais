@@ -40,23 +40,6 @@ using pip:
 
     $ pip install lpais
 
-
-production install
-******************
-
-There is a makefile in the project root directory:
-    
-.. code-block:: bash
-
-    $ make install
-
-Using pip, the above is equivalent to:
-
-.. code-block:: bash
-
-    $ pip install -r requirements.txt                                             
-    $ pip install -e .
-
 dev install
 ****************
 
